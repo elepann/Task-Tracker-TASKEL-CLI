@@ -1,10 +1,10 @@
 const fs = require('fs');
+const { readData } = require('./fileHandler.js')
 const path = './task.json';
 
 function addData(desc){ 
     try {
-        const json = fs.readFileSync(path, 'utf8');
-        const tasks = JSON.parse(json);
+        const tasks = readData();
         const tanggal = new Date();
         let maxId = 0;
 
@@ -36,8 +36,7 @@ function updateData(id, { description, status, updatedAt } = {}){
     try {
         let tasks;
         if (path && path.trim()){
-            const raw = fs.readFileSync(path, 'utf-8');
-            tasks = JSON.parse(raw)
+            tasks = readData();
             const idx = tasks.findIndex(t => Number(t.id) === Number(id));
             if(idx === -1){ 
                 return false
@@ -64,8 +63,7 @@ function deleteData(id){
     try{
         let tasks
         if (path) {
-            const raw = fs.readFileSync(path, 'utf-8');
-            tasks = JSON.parse(raw);
+            tasks = readData();
             const idx = tasks.findIndex(t => Number(t.id) === Number(id));
             if(idx > -1 ){
                 tasks.splice(idx, 1);

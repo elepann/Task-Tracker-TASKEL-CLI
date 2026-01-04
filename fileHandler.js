@@ -18,12 +18,20 @@ function readData(){
 
 function loadData() {
     try {
-        const json = fs.readFileSync(path, 'utf-8'); //return array, yang dibaca dari file task.json. 
+        const json = readData();
         if (json.length > 0) {
-            const datas = JSON.parse(json);
-            datas.forEach(data => {
-                console.log(`${data.id} | ${data.description} | ${data.status} | ${data.createdAt} | ${data.updatedAt}`);
+            console.log("ID   | Description                    | Status     | Created At               | Updated At ")
+            json.forEach(t => {
+                const id = String(t.id).padEnd(4);
+                const desc = t.description.padEnd(30);
+                const status = t.status.padEnd(10);
+                const createdAt = t.createdAt.padEnd(10);
+                const updatedAt = t.updatedAt.padEnd(10);
+
+                console.log(`${id} | ${desc} | ${status} | ${createdAt} | ${updatedAt}`);
             });
+
+            console.log()
         }else {
             console.log('tidak dapat load data, file task.json kosong')
         }
@@ -45,7 +53,7 @@ function filterData(arg, stat){
             console.table(onProgTask);
         }else{
             const toDo = allData.filter(t => t.status === 'todo');
-            console.table(toDo);
+            console.table(toDo)
         }
     }
 }

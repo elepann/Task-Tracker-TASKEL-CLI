@@ -1,4 +1,4 @@
-const { readData, loadData } = require('./fileHandler.js');
+const { readData, loadData, filterData } = require('./fileHandler.js');
 const { addData, updateData, deleteData } = require('./taskService.js');
 
 const process = require('process'); //pake require karna type di package.json nya commonjs
@@ -10,7 +10,9 @@ if (prompt == 'add') {
     addData(contentDescription);
 
 }else if (prompt == 'list') {
+    const desStat = argumen[4];
     loadData()
+    filterData(argumen[3], desStat);
 }else if (prompt == 'update') {
     const idToBeUpdated = Number(argumen[3]);
     if (!idToBeUpdated) {

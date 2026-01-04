@@ -32,4 +32,22 @@ function loadData() {
     }
 }
 
-module.exports = { readData, loadData };
+function filterData(arg, stat){
+    if (arg === '-s' || arg === '--status'){
+        const allData = readData();
+
+        const desStat = stat;
+        if (desStat === "done"){
+            const doneTask = allData.filter(t => t.status === 'done');
+            console.table(doneTask);
+        }else if(desStat === 'on-progress') {
+            const onProgTask = allData.filter(t => t.status === 'on-progress');
+            console.table(onProgTask);
+        }else{
+            const toDo = allData.filter(t => t.status === 'todo');
+            console.table(toDo);
+        }
+    }
+}
+
+module.exports = { readData, loadData, filterData };

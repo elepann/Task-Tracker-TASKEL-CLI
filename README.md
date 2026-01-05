@@ -23,7 +23,7 @@ npm (Node Package Manager)
 
 Installation Guide
 ==================
-1. git clone https://github.com/username/taskel.git
+1. git clone https://github.com/elepann/Task-Tracker-TASKEL-CLI.git
 2. cd TASKEL
 3. npm install
 4. sudo npm link //only on mac user

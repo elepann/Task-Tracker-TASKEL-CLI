@@ -1,5 +1,6 @@
 const fs = require('fs');
-const { readData } = require('./fileHandler.js')
+const { readData } = require('./fileHandler.js');
+const { deepStrictEqual } = require('assert');
 const path = './task.json';
 
 function addData(desc){ 
@@ -32,31 +33,24 @@ function addData(desc){
     }
 }
 
-function updateData(id, { description, status, updatedAt } = {}){
-    try {
-        let tasks;
-        if (path && path.trim()){
-            tasks = readData();
-            const idx = tasks.findIndex(t => Number(t.id) === Number(id));
-            if(idx === -1){ 
-                return false
-            }
-            if (typeof status !== 'undefined'){
-                tasks[idx].status = status
-            }
-            if (typeof description !== 'undefined'){
-                tasks[idx].description = description;
-            }
-            tasks[idx].updatedAt = updatedAt;
+function updateData(id, newStatus, newDesc){
+    const task = readData();
 
-            fs.writeFileSync(path, JSON.stringify(tasks, null, 2));
-            return true
-        }else {
-            return false
-        }
-    } catch (err) {
-        throw err
+    const idx = task.findIndex(t => Number(t.id) === Number(id));
+
+    if(idx === -1) {
+        console.log('id not found')
+        return;
+    };
+    if(newStatus){
+        task[idx].status = newStatus;
+    }else {
+        task[idx].description = newDesc;
     }
+
+    task[idx].updatedAt = String(new Date()).slice(0,10);
+
+    fs.writeFileSync(path, JSON.stringify(task, null, 2));
 }
 
 function deleteData(id){

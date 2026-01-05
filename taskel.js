@@ -1,56 +1,47 @@
-const { readData, loadData, filterData } = require('./fileHandler.js');
+const { PassThrough } = require('stream');
+const { loadData, filterData } = require('./fileHandler.js');
 const { addData, updateData, deleteData } = require('./taskService.js');
+const { program } = require('commander');
 
 const process = require('process'); //pake require karna type di package.json nya commonjs
 const argumen = process.argv;
 const prompt = argumen[2];
 
-if (prompt == 'add') {
-    const contentDescription = argumen.slice(3).join(' ');
-    addData(contentDescription);
 
-}else if (prompt == 'list') {
-    if(argumen[3]){
-        const desStat = argumen[4];
-        filterData(argumen[3], desStat);
+
+//inisialisasi package commander.js
+
+
+program.name('TASKEL').description('TASKEL APPLICATION').version('1.0.0')
+
+//add command
+program.command('add <task>').description('Add Item in JSON').action((tasks) => {
+    addData(tasks)
+})
+
+//list command
+program.command('list').description('display task in JSON').option('-s, --status <status>').action((options) => {
+    const statusTerpilih = options.status
+
+    if(statusTerpilih){
+        filterData(statusTerpilih)
     }else {
-        loadData()
+        loadData();
     }
-}else if (prompt == 'update') {
-    const idToBeUpdated = Number(argumen[3]);
-    if (!idToBeUpdated) {
-        console.log('id not found!!');
-        process.exit(1);
-    }
+})
 
-    let updatedDesc, updatedStatus;
+//delete command 
+program.command('delete <id>').description('delete task in JSON').action((id) => {
+    deleteData(id);
+})
 
-    for (let i = 4; i < argumen.length; i++){
-        const updatedThings = argumen[i];
-        if((updatedThings === '-s' || updatedThings === '--status') && argumen[i+1]){
-            updatedStatus = argumen[i+1];
-            i++
-        }else if ((updatedThings === '-d' || updatedThings === '--description') && argumen[i+1]) {
-            updatedDesc = argumen.slice(i+1).join(' ');
-            i++
-        }
-    }
-    try{
-        const lastUpdatedAt = new Date()
-        const success = updateData(idToBeUpdated, { description: updatedDesc, status: updatedStatus,updatedAt: lastUpdatedAt });
-        if (success) {
-            console.log(`Task ${idToBeUpdated} Updated`)
-        }else {
-            console.log(`Task ${idToBeUpdated} Not Found`);
-        }
-    } catch (err){
-        console.log(err)
-    }
+//update command
+program.command('update <id>').description('update task by id').option('-s, --status <status>', 'update new status').option('-d, --description <description>', 'update new description').action((id, options) => {
 
+    const newDesc = options.description;
+    const newStat = options.status;
 
-}else if (prompt == 'delete') {
-    const idToBeDelete = argumen[3];
-    deleteData(idToBeDelete);
-}else{
-    console.log('enter the right input');
-}
+    updateData(id, newStat, newDesc);
+})
+
+program.parse();

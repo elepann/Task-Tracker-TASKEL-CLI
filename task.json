@@ -1,10 +1,9 @@
 [
   {
     "id": 4,
-    "description": "cuci mobil",
-    "status": "on-progress",
+    "status": "done",
     "createdAt": "2026-01-03T14:45:41.247Z",
-    "updatedAt": "2026-01-04T14:05:59.983Z"
+    "updatedAt": "Mon Jan 05"
   },
   {
     "id": 5,
@@ -19,5 +18,32 @@
     "status": "done",
     "createdAt": "2026-01-04T07:44:34.632Z",
     "updatedAt": "2026-01-04T18:01:13.037Z"
+  },
+  {
+    "id": 7,
+    "description": "beli makan siang",
+    "status": "todo",
+    "createdAt": "2026-01-05T05:06:48.931Z",
+    "updatedAt": "2026-01-05T05:06:48.931Z"
+  },
+  {
+    "id": 8,
+    "description": "beli makan siang",
+    "status": "todo",
+    "createdAt": "2026-01-05T05:06:48.940Z",
+    "updatedAt": "2026-01-05T05:06:48.940Z"
+  },
+  {
+    "id": 9,
+    "status": "on-progress",
+    "createdAt": "2026-01-05T08:12:09.602Z",
+    "updatedAt": "Mon Jan 05"
+  },
+  {
+    "id": 10,
+    "description": "beli mobil",
+    "status": "done",
+    "createdAt": "2026-01-05T08:14:55.140Z",
+    "updatedAt": "Mon Jan 05"
   }
 ]

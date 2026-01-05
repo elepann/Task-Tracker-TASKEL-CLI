@@ -1,3 +1,4 @@
+const { create } = require('domain');
 const fs = require('fs');
 const path = './task.json';
 
@@ -20,13 +21,14 @@ function loadData() {
     try {
         const json = readData();
         if (json.length > 0) {
-            console.log("ID   | Description                    | Status     | Created At               | Updated At ")
+            console.log("ID   | Description                    | Status          | Created At | Updated At");
+            console.log("---------------------------------------------------------------------------------");
             json.forEach(t => {
                 const id = String(t.id).padEnd(4);
                 const desc = t.description.padEnd(30);
-                const status = t.status.padEnd(10);
-                const createdAt = t.createdAt.padEnd(10);
-                const updatedAt = t.updatedAt.padEnd(10);
+                const status = t.status.padEnd(15);
+                const createdAt = String(t.createdAt).slice(0,10).padEnd(10);
+                const updatedAt = String(t.updatedAt).slice(0, 10).padEnd(10);
 
                 console.log(`${id} | ${desc} | ${status} | ${createdAt} | ${updatedAt}`);
             });
@@ -40,49 +42,28 @@ function loadData() {
     }
 }
 
-function filterData(arg, stat){
+function filterData(stat){
     const allData = readData(); //return array of task
-    if (arg === '-s' || arg === '--status'){
-        const desStat = stat;
-        if (desStat === "done"){
-            const doneTask = allData.filter(t => t.status === 'done');
-            console.log("ID   | Description                    | Status     | Created At               | Updated At ")
-            doneTask.forEach(d => {
-                const id = String(d.id).padEnd(4);
-                const desc = d.description.padEnd(30);
-                const status = d.status.padEnd(10);
-                const createdAt = d.createdAt.padEnd(10);
-                const updatedAt = d.updatedAt.padEnd(10);
+    const availStat = ['todo', 'on-progress', 'done'];
 
-                console.log(`${id} | ${desc} | ${status} | ${createdAt} | ${updatedAt}`);
-            });
-        }else if(desStat === 'on-progress') {
-            const onProgTask = allData.filter(t => t.status === 'on-progress');
-            console.log("ID   | Description                    | Status     | Created At               | Updated At ")
-            onProgTask.forEach(d => {
-                const id = String(d.id).padEnd(4);
-                const desc = d.description.padEnd(30);
-                const status = d.status.padEnd(10);
-                const createdAt = d.createdAt.padEnd(10);
-                const updatedAt = d.updatedAt.padEnd(10);
+    if (!availStat.includes(stat)){ // kalo di availStat include stat, tapi karna ada ! di balik.
+        console.log('enter the right status');
+        return;
+    }else {
+        const filteredData = allData.filter(t => t.status === stat); //ini all data yang sudah di filter dimana t.status sama dengan parameter stat
+        console.log("ID   | Description                    | Status          | Created At | Updated At");
+        console.log("---------------------------------------------------------------------------------");
 
-                console.log(`${id} | ${desc} | ${status} | ${createdAt} | ${updatedAt}`);
-            });
-        }else if (desStat === 'todo'){
-            const toDo = allData.filter(t => t.status === 'todo');
-            console.log("ID   | Description                    | Status     | Created At               | Updated At ")
-            toDo.forEach(d => {
-                const id = String(d.id).padEnd(4);
-                const desc = d.description.padEnd(30);
-                const status = d.status.padEnd(10);
-                const createdAt = d.createdAt.padEnd(10);
-                const updatedAt = d.updatedAt.padEnd(10);
+        filteredData.forEach(fData => {
+            const id = String(fData.id).padEnd(4);
+            const description = fData.description.padEnd(30);
+            const status = fData.status.padEnd(15);
+            const createdAt = String(fData.createdAt).slice(0, 10).padEnd(10);
+            const updatedAt = String(fData.updatedAt).slice(0, 10).padEnd(10);
 
-                console.log(`${id} | ${desc} | ${status} | ${createdAt} | ${updatedAt}`);
-            });
-        }else {
-            console.log('Enter The Right Status [ todo | on-progress | done ]');
-        }
+            console.log(`${id} | ${description} | ${status} | ${createdAt} | ${updatedAt}`);
+
+        });
     }
 }
 

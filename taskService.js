@@ -44,6 +44,7 @@ function updateData(id, newStatus, newDesc){
     };
     if(newStatus){
         task[idx].status = newStatus;
+        console.log(`Task Status With ID ${id} Successfully Updated`)
     }else {
         task[idx].description = newDesc;
     }

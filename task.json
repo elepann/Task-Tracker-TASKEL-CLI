@@ -3,14 +3,15 @@
     "id": 4,
     "status": "done",
     "createdAt": "2026-01-03T14:45:41.247Z",
-    "updatedAt": "Mon Jan 05"
+    "updatedAt": "Mon Jan 05",
+    "description": "bukan undefined kok"
   },
   {
     "id": 5,
     "description": "nonton avatar",
-    "status": "todo",
+    "status": "done",
     "createdAt": "2026-01-03T16:07:34.160Z",
-    "updatedAt": "2026-01-03T16:07:34.160Z"
+    "updatedAt": "Mon Jan 05"
   },
   {
     "id": 6,
@@ -29,21 +30,22 @@
   {
     "id": 8,
     "description": "beli makan siang",
-    "status": "todo",
+    "status": "done",
     "createdAt": "2026-01-05T05:06:48.940Z",
-    "updatedAt": "2026-01-05T05:06:48.940Z"
-  },
-  {
-    "id": 9,
-    "status": "on-progress",
-    "createdAt": "2026-01-05T08:12:09.602Z",
     "updatedAt": "Mon Jan 05"
   },
   {
     "id": 10,
-    "description": "beli mobil",
-    "status": "done",
+    "description": "beli sarapan",
+    "status": "todo",
     "createdAt": "2026-01-05T08:14:55.140Z",
     "updatedAt": "Mon Jan 05"
+  },
+  {
+    "id": 11,
+    "description": "mandi sore",
+    "status": "todo",
+    "createdAt": "2026-01-05T08:24:04.532Z",
+    "updatedAt": "2026-01-05T08:24:04.532Z"
   }
 ]

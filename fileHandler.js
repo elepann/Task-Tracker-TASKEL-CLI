@@ -25,8 +25,8 @@ function loadData() {
             console.log("---------------------------------------------------------------------------------");
             json.forEach(t => {
                 const id = String(t.id).padEnd(4);
-                const desc = t.description.padEnd(30);
-                const status = t.status.padEnd(15);
+                const desc = String(t.description).padEnd(30);
+                const status = String(t.status).padEnd(15);
                 const createdAt = String(t.createdAt).slice(0,10).padEnd(10);
                 const updatedAt = String(t.updatedAt).slice(0, 10).padEnd(10);
 
